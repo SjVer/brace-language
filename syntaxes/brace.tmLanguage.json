@@ -1,0 +1,191 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Brace",
+	"scopeName": "source.brc",
+	"patterns": [
+		{ "include": "#comments" },
+		{ "include": "#fn-keywords" },
+		{ "include": "#keywords" },
+		{ "include": "#operators" },
+		{ "include": "#declarations" },
+		{ "include": "#calls" },
+		{ "include": "#strings"  },
+		{ "include": "#numbers"  },
+		{ "include": "#constants"  },
+		{ "include": "#types"  },
+		{ "include": "#terminator"  }
+	],
+	"repository": {
+		"comments": {
+			"name": "comment.brace",
+			"patterns": [
+				{
+					"name": "comment.line.brace",
+					"match": "((?:#).*)$"
+				},
+				{
+					"name": "comment.block.brace",
+					"begin": "#\\*",
+					"end": "\\*#"
+				}
+			]
+		},
+		"fn-keywords": {
+			"patterns": [{
+				"name": "keyword.control",
+				"match": "\\b(Exit|Print|PrintLn)\\b"
+			}]
+		},
+		"operators" : {
+			"patterns": [
+				{
+					"match": "\\-\\-",
+					"name": "keyword.operator.decrement.brace"
+				},
+				{
+					"match": "\\+\\+",
+					"name": "keyword.operator.increment.brace"
+				},
+				{
+					"match": "(==|!=|<=|>=|<|>)",
+					"name": "keyword.operator.comparison.brace"
+				},
+				{
+					"match": "(&&|\\|\\||!)",
+					"name": "keyword.operator.logical.brace"
+				},
+				{
+					"match": "(=|\\+=|\\-=)",
+					"name": "keyword.operator.assignment.brace"
+				},
+				{
+					"match": "(\\+|\\-|\\*|/|%)",
+					"name": "keyword.operator.arithmetic.brace"
+				},
+				{
+					"match": "(\\?|\\:)",
+					"name": "keyword.operator.ternary.brace"
+				}
+			]
+		},
+		"keywords": {
+			"patterns": [
+				{
+					"name": "keyword.control.brace",
+					"match": "\\b(If|Else|While|For|Foreach|Return)\\b"
+				}
+			]
+		},
+		"declarations" : {
+			"patterns": [
+				{
+					"match": "\\b(Var)\\s+([A-Za-z_][A-Za-z0-9_]*)\\b",
+					"captures": {
+						"1": {
+							"name": "storage.type.brace"
+						},
+						"2": {
+							"name": "support.variable.brace"
+						}
+					}
+				},
+				{
+					"match": "\\b(Fun)\\s+([A-Za-z_][A-Za-z0-9_]*)\\s*(->)?\\s*([A-z]*\\s*)?\\[(.*)\\]\\s*",
+					"captures": {
+						"1": {
+							"name": "storage.type.function.brace"
+						},
+						"2": {
+							"name": "entity.name.function.brace"
+						},
+						"3": {
+							"name": "keyword.operator.brace"
+						},
+						"4": {
+							"patterns": [{
+								"match": "\\b(Any|Bln|Null|Num|Array|Method|Cls|Fun|Inst|Str|Type)\\b",
+								"name": "storage.type.brace"
+							}]
+						},
+						"5": {
+							"patterns": [
+								{
+									"match": "(\\w)\\s*((:)\\s*[A-z]+)?",
+									"captures": {
+										"1" : { "name": "variable.parameter.brace" },
+										"2" : { "name": "storage.type.brace" },
+										"3" : { "name": "keyword.operator.brace" }
+									}
+								},
+								{
+									"match": "\\S",
+									"name": "invalid.deprecated"
+								}
+							]
+						}
+					}
+				},
+				{
+					"match": "(Cls)\\s+([A-Za-z_][A-Za-z0-9_]*)(?:\\s*(<)\\s*([A-Za-z_][A-Za-z0-9_]*))?\\s*{",
+					"captures": {
+						"1": {
+							"name": "storage.type.class.brace"
+						},
+						"2": {
+							"name": "entity.name.class"
+						},
+						"3": {
+							"name": "keyword.operator"
+						},
+						"4": {
+							"name": "entity.other.inherited-class"
+						}
+					}
+				}
+			]
+		},
+		"calls": {
+			"match:": "(\\w[\\w\\d_]*)\\s*?\\(",
+			"captures": {
+				"1": {
+					"name": "entity.name.function.brace"
+				}
+			} 
+		},
+		"strings": {
+			"name": "string.quoted.double.brace",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.brace",
+					"match": "\\\\."
+				}
+			]
+		},
+		"numbers": {
+			"name": "constant.numeric",
+			"match": "([0-9]*\\.)?[0-9]+"
+		},
+		"constants": {
+			"patterns": [
+				{
+					"name": "constant.numeric",
+					"match": "\\b(true|false|null)\\b"
+				},
+				{
+					"name": "variable.language",
+					"match": "\\b(this|super|_LER)\\b"
+				}
+			]
+		},
+		"types": {
+			"match": "\\b(Any|Bln|Null|Num|Array|Method|Cls|Fun|Inst|Str|Type)\\b",
+			"name": "storage.type.brace"
+		},
+		"terminator": {
+			"name": "punctuation.terminator.brace",
+			"match": ";"
+		}
+	}
+}

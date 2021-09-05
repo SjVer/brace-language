@@ -1,0 +1,25 @@
+{
+    "name": "brace-language",
+    "displayName": "Brace language",
+    "description": "Brace Syntax Highlighting",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.59.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "brace",
+            "aliases": ["Brace", "brace"],
+            "extensions": [".brc"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "brace",
+            "scopeName": "source.brc",
+            "path": "./syntaxes/brace.tmLanguage.json"
+        }]
+    }
+}
